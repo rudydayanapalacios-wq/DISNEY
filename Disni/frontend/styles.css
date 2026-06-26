@@ -1,0 +1,407 @@
+/* Variables globales del sistema de diseño de nuestra interfaz */
+:root {
+  --disney-blue: #002366;       /* Azul marino real de fondo intermedio */
+  --disney-dark: #001233;       /* Azul noche ultra oscuro para esquinas y sombras */
+  --disney-gold: #d4af37;       /* Dorado metálico para bordes e insignias principales */
+  --disney-gold-light: #f3e5ab; /* Dorado suave o crema para lecturas secundarias */
+  --screen: #0f172a;            /* Fondo gris pizarra oscuro para recuadros de inputs */
+  --screen-soft: #1e293b;       /* Fondo gris pizarra claro para las tarjetas */
+  --ink: #f8fafc;               /* Color de tinta blanca brillante para las tipografías */
+  --muted: #94a3b8;             /* Color gris apagado para subtítulos o IDs */
+  --white: #ffffff;             /* Blanco absoluto */
+}
+
+/* Reset básico global para estandarizar comportamiento entre navegadores */
+* {
+  box-sizing: border-box; /* Incluye bordes y espaciados internos dentro de las medidas */
+  margin: 0;              /* Remueve márgenes residuales del navegador */
+  padding: 0;             /* Remueve rellenos residuales del navegador */
+}
+
+/* Configuración general del body de la pantalla */
+body {
+  min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
+  /* Fondo degradado radial de adentro hacia afuera que simula un cielo azul noche */
+  background: radial-gradient(circle at 50% 50%, var(--disney-blue), var(--disney-dark));
+  color: var(--ink);
+  display: flex;
+  justify-content: center; /* Centrado horizontal del contenedor de la aplicación */
+  align-items: flex-start;  /* Alinea el inicio arriba para permitir el crecimiento vertical */
+  padding: 2rem 1rem;
+}
+
+/* Estilo del contenedor envolvente de la Wiki */
+.disney-app {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.05); /* Cristal traslúcido elegante */
+  backdrop-filter: blur(10px);           /* Efecto de desenfoque de fondo moderno */
+  border: 2px solid var(--disney-gold);  /* Borde dorado distintivo exigido */
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* Cabecera superior */
+.disney-app__top {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Pequeña esfera dorada brillante de decoración */
+.magic-sphere {
+  width: 16px;
+  height: 16px;
+  background: var(--disney-gold);
+  border-radius: 50%;
+  margin: 0 auto 12px auto;
+  box-shadow: 0 0 15px var(--disney-gold); /* Efecto de resplandor o brillo mágico */
+}
+
+/* Título clásico con tipografía de fantasía Cinzel */
+.disney-title {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 2.6rem;
+  color: var(--disney-gold);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+}
+
+.disney-app__main {
+  padding: 2rem;
+}
+
+/* Distribución horizontal de la barra de herramientas de búsqueda */
+.search__form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+/* Cuadro de texto de búsqueda */
+.search__input {
+  flex: 1; /* Permite estirarse ocupando todo el espacio disponible */
+  background: var(--screen);
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Evento cuando el usuario se enfoca en el input */
+.search__input:focus {
+  border-color: var(--disney-gold);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+/* Botones comunes del buscador y acciones */
+.search__button, .search__reset, .load-more, .save-button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.2s;
+}
+
+.search__button {
+  background: var(--disney-gold);
+  color: var(--disney-dark);
+}
+
+.search__reset {
+  background: var(--screen-soft);
+  color: var(--ink);
+}
+
+/* Efecto visual al posar el mouse sobre los botones interactivos */
+.search__button:hover, .search__reset:hover, .load-more:hover, .save-button:hover {
+  filter: brightness(1.1); /* Incrementa sutilmente la iluminación */
+}
+
+/* Mensajes informativos de estado */
+.status {
+  text-align: center;
+  font-style: italic;
+  color: var(--disney-gold-light);
+  margin-bottom: 1.5rem;
+  min-height: 1.2rem;
+}
+
+/* Cuadrícula de despliegue adaptativa basada en CSS Grid */
+.grid {
+  display: grid;
+  /* Fabrica tantas columnas como quepan automáticamente con un mínimo de 180 píxeles */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Estructura estética de cada tarjeta de personaje */
+.card {
+  background: var(--screen-soft);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+/* Animación sutil de levitación y resalte al posarse en una tarjeta */
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--disney-gold);
+}
+
+/* Marco oscuro para la imagen del personaje */
+.card__image-container {
+  background: var(--screen);
+  border-radius: 8px;
+  aspect-ratio: 1; /* Asegura proporción completamente simétrica (cuadrada) */
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta la imagen llenando el recuadro sin deformar las caras */
+}
+
+/* Estilo del nombre en la tarjeta */
+.card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;      /* Evita que salte a un segundo renglón */
+  overflow: hidden;         /* Recorta el texto excedente */
+  text-overflow: ellipsis;  /* Pone puntos suspensivos si es un nombre muy extenso */
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.load-more {
+  background: transparent;
+  border: 1px solid var(--disney-gold);
+  color: var(--disney-gold);
+}
+
+/* Estructura general de las ventanas flotantes (Modales) */
+.modal {
+  position: fixed; /* Se posiciona de forma estricta flotando sobre toda la pantalla visible */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100; /* Asegura quedar por encima del resto del contenido inferior */
+}
+
+/* Ocultador general utilitario */
+.modal.hidden {
+  display: none;
+}
+
+/* Capa posterior oscura de enfoque */
+.modal__backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Tarjeta flotante del modal */
+.modal__card {
+  position: relative;
+  background: var(--screen-soft);
+  border: 2px solid var(--disney-gold);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 450px;
+  padding: 2rem;
+  z-index: 101;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de cierre en forma de cruz de la esquina superior */
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  color: var(--white);
+}
+
+/* Estilos internos para el detalle del personaje */
+.detail {
+  text-align: center;
+}
+
+.detail__image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%; /* Transforma la imagen en una silueta redonda elegante */
+  border: 3px solid var(--disney-gold);
+  margin-bottom: 1rem;
+}
+
+.detail__name {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.8rem;
+  color: var(--disney-gold);
+  margin-bottom: 0.5rem;
+}
+
+.detail__meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* Bloques de textos informativos internos de películas y atracciones */
+.detail__section {
+  text-align: left;
+  background: var(--screen);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  max-height: 110px;      /* Altura máxima para evitar deformación por sobrecarga de datos */
+  overflow-y: auto;       /* Habilita barra de desplazamiento interna si hay mucho texto */
+}
+
+.detail__section-title {
+  font-size: 0.8rem;
+  color: var(--disney-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.detail__text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Botón especial para enviar datos al servidor */
+.save-button {
+  background: var(--disney-gold);
+  color: var(--disney-dark);
+  width: 100%;
+}
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Contenedor relativo para alinear la animación */
+.tinkerbell-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+/* El hada Tinkerbell (representada por el emoji y destellos) */
+.tinkerbell-pixie {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  font-size: 2rem;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  /* Animación: se mueve y desaparece al terminar */
+  animation: flyAndDraw 3s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+
+/* Título animado que inicia oculto y se revela con un efecto de máscara (dibujo) */
+.animated-title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  border-right: 3px solid transparent;
+  /* El retraso hace que empiece a aparecer justo cuando pasa el hada */
+  animation: drawText 2.5s steps(40, end) 0.3s forwards, blinkCursor 0.5s step-end infinite alternate;
+}
+
+/* Efecto de destellos mágicos cayendo (opcional, adorna el fondo) */
+.tinkerbell-container::after {
+  content: "✨";
+  position: absolute;
+  right: 10%;
+  top: -20px;
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: fadeSparks 1s ease-in-out 2.5s forwards;
+}
+
+/* KEYFRAMES: Movimiento de izquierda a derecha simulando el vuelo */
+@keyframes flyAndDraw {
+  0% {
+    left: 10%;
+    top: 20px;
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1.2) rotate(15deg);
+  }
+  50% {
+    top: -25px; /* Sube un poco en el medio para dar un efecto orgánico */
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1) rotate(-10deg);
+  }
+  100% {
+    left: 90%;
+    top: 10px;
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+}
+
+/* KEYFRAMES: Revelado de las letras simula el trazo */
+@keyframes drawText {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* KEYFRAMES: Parpadeo sutil de la varita al final antes de desaparecer */
+@keyframes blinkCursor {
+  from { border-color: var(--disney-gold, #ffd700); }
+  to { border-color: transparent; }
+}
+
+@keyframes fadeSparks {
+  0% { opacity: 0; transform: translateY(0); }
+  100% { opacity: 0.8; transform: translateY(10px); }
+}
